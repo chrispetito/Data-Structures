@@ -37,9 +37,9 @@ class BinarySearchTree:
         # else, recurse
         self.left = BinarySearchTree(value)
     else:
-      # if it's self.left...
+      # if it's self.right...
       if self.right:
-        # insert the value to the left
+        # insert the value to the right
         self.right.insert(value)
       else:
         # else, recurse
@@ -76,10 +76,19 @@ class BinarySearchTree:
 
   # * `get_max` returns the maximum value in the binary search tree.
   def get_max(self):
-    return self.size
+    if self.right:
+      self.value = self.right
+    if self.value > self.right:
+      return self.value
 
   # * `for_each` performs a traversal of _every_ node in the tree, executing
   # the passed-in callback function on each tree node value. There is a myriad of ways to
   # perform tree traversal; in this case any of them should work. 
   def for_each(self, cb):
-    pass
+    if self.value == None:
+      return
+    cb(self.value)
+    if self.left:
+      self.left.for_each(cb)
+    if self.right:
+      self.right.for_each(cb)
