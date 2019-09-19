@@ -129,10 +129,10 @@ class BinarySearchTree:
       while cue_name.size > 0:
         variable = cue_name.dequeue()
         print(variable.value)
-        if variable.right:
-          cue_name.enqueue(variable.right)
         if variable.left:
           cue_name.enqueue(variable.left)
+        if variable.right:
+          cue_name.enqueue(variable.right)
 
 
   def dft_print(self, node):
@@ -141,20 +141,18 @@ class BinarySearchTree:
       # add node as root in stack
       stack_name.push(node)
       # while stack:
-      while stack_name:
+      while stack_name.size > 0:
         # pop first item in stack into variable
         variable = stack_name.pop()
-        # print(var.value)
-        # print(variable.value)
+        print(variable.value)
         # if var.right:
+        if variable.left:
+          # add to stack
+          stack_name.push(variable.left)
+        # elif var.left:
         if variable.right:
           # add to stack
           stack_name.push(variable.right)
-        # elif var.left:
-        elif variable.left:
-          # add to stack
-          stack_name.push(variable.left)
-
 
   # STRETCH Goals -------------------------
   # Note: Research may be required
