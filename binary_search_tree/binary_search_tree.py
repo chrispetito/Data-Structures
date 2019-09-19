@@ -92,3 +92,78 @@ class BinarySearchTree:
       self.left.for_each(cb)
     if self.right:
       self.right.for_each(cb)
+
+  # DAY 2 Project -----------------------
+
+    # Print all the values in order from low to high
+    # Hint:  Use a recursive, depth first traversal
+  def in_order_dft(self, node):
+      stack_name = Stack()
+      ordered_list = []
+      if node:
+        stack_name.push(node)
+        while stack_name.size > 0:
+          variable = stack_name.pop()
+          ordered_list.append(variable.value)
+          if variable.right:
+            stack_name.push(variable.right)
+          if variable.left:
+            stack_name.push(variable.left)
+      new_list = sorted(ordered_list)
+      for i in new_list:
+        print(i)
+
+
+  # Print the value of every node, starting with the given node,
+  # in an iterative breadth first traversal
+  #   create a queue
+  # put root in queue
+  # while queue is not empty
+  # pop first item in queue
+  # check left and right add to queue
+  # shift 
+  # go to head of queue and continue'''
+  def bft_print(self, node):
+      cue_name = Queue()
+      cue_name.enqueue(node)
+      while cue_name.size > 0:
+        variable = cue_name.dequeue()
+        print(variable.value)
+        if variable.right:
+          cue_name.enqueue(variable.right)
+        if variable.left:
+          cue_name.enqueue(variable.left)
+
+
+  def dft_print(self, node):
+      # make a stack
+      stack_name = Stack()
+      # add node as root in stack
+      stack_name.push(node)
+      # while stack:
+      while stack_name:
+        # pop first item in stack into variable
+        variable = stack_name.pop()
+        # print(var.value)
+        # print(variable.value)
+        # if var.right:
+        if variable.right:
+          # add to stack
+          stack_name.push(variable.right)
+        # elif var.left:
+        elif variable.left:
+          # add to stack
+          stack_name.push(variable.left)
+
+
+  # STRETCH Goals -------------------------
+  # Note: Research may be required
+
+  # Print In-order recursive DFT
+  def pre_order_dft(self, node):
+      pass
+
+  # Print Post-order recursive DFT
+  def post_order_dft(self, node):
+      pass
+
