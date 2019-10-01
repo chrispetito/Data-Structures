@@ -1,3 +1,8 @@
+# import sys
+# sys.path.append('../doubly_linked_list.py')
+from doubly_linked_list import DoublyLinkedList
+
+
 class LRUCache:
   """
   Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +12,10 @@ class LRUCache:
   to every node stored in the cache.
   """
   def __init__(self, limit=10):
-    pass
+    self.limit = limit
+    self.nodes = 0
+    self.cache = {}
+    self.storage = DoublyLinkedList()
 
   """
   Retrieves the value associated with the given key. Also
@@ -17,7 +25,16 @@ class LRUCache:
   key-value pair doesn't exist in the cache. 
   """
   def get(self, key):
-    pass
+    # if key isn't in cache return None
+    if key not in self.cache:
+      return None
+    # else, set node to the key in cache, delete node from storage, add key and node to storage head and return node value
+    else:
+      node = self.cache[key]
+      self.storage.delete(node[1])
+      self.storage.add_to_head([key, node[0]])
+      return node[0]
+
 
   """
   Adds the given key-value pair to the cache. The newly-
@@ -30,4 +47,25 @@ class LRUCache:
   the newly-specified value. 
   """
   def set(self, key, value):
-    pass
+    # if key exists in cache...
+    if key in self.cache:
+      # set var to node
+      node = self.cache[key]
+      # delete node from storage
+      self.storage.delete(node[1])
+      # add node to storage head
+      self.storage.add_to_head([key, value])
+      # set cache node to storage node
+      self.cache[key] = [value, self.storage.head]
+      return
+    # if cache is at max capacity...  
+    elif self.limit is self.nodes:
+      # remove tail node from storage and cache
+      node_value = self.storage.tail
+      self.storage.remove_from_tail()
+      del self.cache[node_value.value[0]]
+      self.nodes -= 1
+    # add new node to head
+    self.storage.add_to_head([ key, value ])
+    self.cache[key] = [value, self.storage.head]
+    self.nodes += 1
